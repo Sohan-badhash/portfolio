@@ -1,5 +1,7 @@
 import { ParticleBackground } from "@/components/particle-background";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { SmoothScroll } from "@/components/smooth-scroll";
+import { CustomCursor } from "@/components/custom-cursor";
 import { LoadingScreen } from "@/components/loading-screen";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -12,12 +14,13 @@ import { Education } from "@/components/sections/education";
 import { Certifications } from "@/components/sections/certifications";
 import { Experience } from "@/components/sections/experience";
 import { Learning } from "@/components/sections/learning";
-import { Achievements } from "@/components/sections/achievements";
 import { Contact } from "@/components/sections/contact";
 
 export default function Home() {
   return (
     <>
+      <SmoothScroll />
+      <CustomCursor />
       <LoadingScreen />
       <ParticleBackground />
       <ScrollProgress />
@@ -31,7 +34,6 @@ export default function Home() {
         <Education />
         <Certifications />
         <Learning />
-        <Achievements />
         <Contact />
       </main>
       <Footer />

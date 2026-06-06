@@ -1,7 +1,8 @@
 import {
   personal,
   about,
-  skillCategories,
+  techStack,
+  techCategories,
   projects,
   experience,
   education,
@@ -27,12 +28,18 @@ const rules: Rule[] = [
   {
     keywords: ["skill", "tech", "stack", "language", "tool", "framework"],
     answer: () =>
-      `Sohan works across:\n${skillCategories
-        .map((c) => `• ${c.category}: ${c.skills.map((s) => s.name).join(", ")}`)
+      `Sohan works across:\n${techCategories
+        .map(
+          (cat) =>
+            `• ${cat}: ${techStack
+              .filter((t) => t.category === cat)
+              .map((t) => t.name)
+              .join(", ")}`
+        )
         .join("\n")}`,
   },
   {
-    keywords: ["project", "build", "built", "work", "emobhaava", "healthmate", "alzheimer", "baja"],
+    keywords: ["project", "build", "built", "work", "naac", "healthmate", "wallet", "hospital", "obstacle"],
     answer: () =>
       `Featured projects:\n${projects
         .map((p) => `• ${p.title} (${p.category}) — ${p.description}`)
@@ -41,12 +48,12 @@ const rules: Rule[] = [
   {
     keywords: ["ai", "ml", "machine learning", "deep learning", "nlp", "vision"],
     answer: () =>
-      `On the AI/ML side, Sohan has built EmoBhaava (Kannada sentiment & sarcasm detection), HealthMate (multimodal health assistant with Whisper + LLMs), and an Alzheimer's MRI classification study. Tools: TensorFlow, PyTorch, Scikit-Learn, NLP, Computer Vision.`,
+      `On the AI/ML side, Sohan has built HealthMate (a multimodal AI health companion with symptom analysis, doctor recommendations, and audio interaction via Whisper + LLMs) and the GeoGIT Automated Form Data Extraction System (OCR-based data extraction). Tools: Python, PyTorch, TensorFlow, Hugging Face, LangChain, OpenCV, NLP & OCR.`,
   },
   {
     keywords: ["salesforce", "apex", "lwc", "crm", "flow"],
     answer: () =>
-      `Sohan interned at Salesforce building CRM automation with Flow, Lightning App Builder UIs, and analytics dashboards. He also built a CRM solution for WhatNext Vision Motors using Apex, LWC, Flow Builder, and SOQL.`,
+      `Sohan interned at Salesforce building CRM automation with Flow, Lightning App Builder UIs, and analytics dashboards. He also built the WhatNext Vision Motors CRM, a suite of Flow Automation projects, and a Vehicle Order & Inventory Management System (custom Vehicle_Order__c object, Apex triggers, Batch Apex, and scheduled jobs).`,
   },
   {
     keywords: ["experience", "intern", "internship", "job", "geojit"],

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   Mail,
   Phone,
@@ -9,7 +9,6 @@ import {
   Github,
   Linkedin,
   Send,
-  CheckCircle2,
 } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { Reveal } from "@/components/reveal";
@@ -24,6 +23,77 @@ const details = [
   { icon: Linkedin, label: "LinkedIn", value: "in/sohan1919", href: personal.socials.linkedin },
   { icon: Github, label: "GitHub", value: "Sohan-dsz", href: personal.socials.github },
 ];
+
+function FeedbackOverlay({ name }: { name: string }) {
+  const reduced = useReducedMotion();
+  return (
+    <motion.div
+      // Top-to-bottom feedback: sweeps in from the top, exits toward the bottom.
+      initial={reduced ? { opacity: 0 } : { y: "-110%" }}
+      animate={reduced ? { opacity: 1 } : { y: 0 }}
+      exit={reduced ? { opacity: 0 } : { y: "110%" }}
+      transition={{ type: "spring", stiffness: 120, damping: 20 }}
+      className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl bg-gradient-to-b from-neon-blue/20 via-card/95 to-neon-purple/20 p-8 text-center backdrop-blur-xl"
+    >
+      {/* descending shimmer sweep */}
+      {!reduced && (
+        <motion.div
+          className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/15 to-transparent"
+          initial={{ y: "-100%" }}
+          animate={{ y: "320%" }}
+          transition={{ duration: 1.1, ease: "easeInOut", delay: 0.2 }}
+        />
+      )}
+      <motion.svg
+        width="68"
+        height="68"
+        viewBox="0 0 68 68"
+        className="drop-shadow-[0_0_12px_rgba(34,211,238,0.6)]"
+      >
+        <motion.circle
+          cx="34"
+          cy="34"
+          r="30"
+          fill="none"
+          stroke="#22d3ee"
+          strokeWidth="3"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        />
+        <motion.path
+          d="M21 35 L30 44 L48 25"
+          fill="none"
+          stroke="#22d3ee"
+          strokeWidth="4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.5 }}
+        />
+      </motion.svg>
+      <div>
+        <motion.h3
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.55 }}
+          className="text-xl font-semibold neon-text"
+        >
+          Thanks{name ? `, ${name.split(" ")[0]}` : ""}!
+        </motion.h3>
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className="mt-1 text-sm text-muted-foreground"
+        >
+          Your message is ready — opening your mail client now.
+        </motion.p>
+      </div>
+    </motion.div>
+  );
+}
 
 export function Contact() {
   const [sent, setSent] = useState(false);
@@ -81,8 +151,11 @@ export function Contact() {
           <Reveal delay={0.1}>
             <form
               onSubmit={handleSubmit}
-              className="glass-card space-y-4 p-6 md:p-8"
+              className="glass-card relative space-y-4 overflow-hidden p-6 md:p-8"
             >
+              <AnimatePresence>
+                {sent && <FeedbackOverlay name={form.name} />}
+              </AnimatePresence>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label className="mb-1.5 block text-xs text-muted-foreground">
@@ -120,19 +193,7 @@ export function Contact() {
                 />
               </div>
               <Button type="submit" size="lg" className="w-full">
-                {sent ? (
-                  <motion.span
-                    initial={{ scale: 0.8 }}
-                    animate={{ scale: 1 }}
-                    className="flex items-center gap-2"
-                  >
-                    <CheckCircle2 className="h-4 w-4" /> Opening your mail client…
-                  </motion.span>
-                ) : (
-                  <>
-                    <Send className="h-4 w-4" /> Send Message
-                  </>
-                )}
+                <Send className="h-4 w-4" /> Send Message
               </Button>
             </form>
           </Reveal>

@@ -17,6 +17,7 @@ import {
   Maximize2,
   ChevronLeft,
   ChevronRight,
+  Star,
   X,
 } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
@@ -29,7 +30,10 @@ const filters: ("All" | ProjectCategory)[] = [
   "AI/ML",
   "Data Science",
   "Salesforce",
-  "Web Development",
+  "Cloud",
+  "IoT",
+  "Web & App",
+  "Database",
 ];
 
 function TiltCard({
@@ -60,6 +64,8 @@ function TiltCard({
     y.set(0);
   };
 
+  const hasImages = project.images.length > 0;
+
   return (
     <motion.div
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
@@ -69,23 +75,36 @@ function TiltCard({
     >
       <button
         type="button"
-        onClick={onOpen}
-        aria-label={`View ${project.title} screenshots`}
+        onClick={hasImages ? onOpen : undefined}
+        disabled={!hasImages}
+        aria-label={
+          hasImages
+            ? `View ${project.title} screenshots`
+            : project.title
+        }
         className={cn(
           "relative flex h-44 w-full items-center justify-center overflow-hidden bg-gradient-to-br text-6xl",
-          project.gradient
+          project.gradient,
+          !hasImages && "cursor-default"
         )}
       >
         <span className="transition-transform duration-500 group-hover:scale-125">
           {project.emoji}
         </span>
+        {project.featured && (
+          <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full border border-amber-300/40 bg-amber-400/15 px-2.5 py-1 text-[11px] font-semibold text-amber-200 backdrop-blur-md">
+            <Star className="h-3 w-3 fill-amber-300 text-amber-300" /> Top Pick
+          </span>
+        )}
         <span className="absolute right-3 top-3 rounded-full border border-white/15 bg-black/30 px-3 py-1 text-xs font-medium text-white backdrop-blur-md">
           {project.category}
         </span>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.15),transparent)]" />
-        <span className="absolute inset-0 flex items-center justify-center gap-2 bg-black/55 text-sm font-medium text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
-          <Maximize2 className="h-4 w-4" /> View Screenshots
-        </span>
+        {hasImages && (
+          <span className="absolute inset-0 flex items-center justify-center gap-2 bg-black/55 text-sm font-medium text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+            <Maximize2 className="h-4 w-4" /> View Screenshots
+          </span>
+        )}
       </button>
 
       <div className="p-6" style={{ transform: "translateZ(40px)" }}>
@@ -115,13 +134,15 @@ function TiltCard({
         </div>
 
         <div className="mt-5 flex gap-2">
-          <button
-            type="button"
-            onClick={onOpen}
-            className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-white/10 bg-white/5 py-2 text-xs font-medium transition-colors hover:border-neon-cyan/50 hover:text-neon-cyan"
-          >
-            <Maximize2 className="h-3.5 w-3.5" /> View
-          </button>
+          {hasImages && (
+            <button
+              type="button"
+              onClick={onOpen}
+              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-white/10 bg-white/5 py-2 text-xs font-medium transition-colors hover:border-neon-cyan/50 hover:text-neon-cyan"
+            >
+              <Maximize2 className="h-3.5 w-3.5" /> View
+            </button>
+          )}
           {project.github && (
             <a
               href={project.github}
@@ -351,8 +372,11 @@ function ProjectModal({
 export function Projects() {
   const [active, setActive] = useState<"All" | ProjectCategory>("All");
   const [selected, setSelected] = useState<Project | null>(null);
-  const filtered =
-    active === "All" ? projects : projects.filter((p) => p.category === active);
+  const filtered = (
+    active === "All" ? projects : projects.filter((p) => p.category === active)
+  )
+    .slice()
+    .sort((a, b) => Number(b.featured ?? false) - Number(a.featured ?? false));
 
   return (
     <section id="projects" className="section-padding relative">

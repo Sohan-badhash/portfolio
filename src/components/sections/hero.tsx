@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Magnetic } from "@/components/magnetic";
 import { personal } from "@/lib/data";
 
 const HeroScene = dynamic(() => import("@/components/hero-scene"), {
@@ -78,16 +79,20 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start"
           >
-            <a href={personal.resumeUrl} download>
-              <Button size="lg">
-                <Download className="h-4 w-4" /> Download Resume
-              </Button>
-            </a>
-            <a href="#contact">
-              <Button size="lg" variant="outline">
-                <Mail className="h-4 w-4" /> Contact Me
-              </Button>
-            </a>
+            <Magnetic>
+              <a href={personal.resumeUrl} download>
+                <Button size="lg">
+                  <Download className="h-4 w-4" /> Download Resume
+                </Button>
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a href="#contact">
+                <Button size="lg" variant="outline">
+                  <Mail className="h-4 w-4" /> Contact Me
+                </Button>
+              </a>
+            </Magnetic>
           </motion.div>
 
           <motion.div
