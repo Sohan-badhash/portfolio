@@ -2,17 +2,13 @@ import type { LucideIcon } from "lucide-react";
 import {
   Brain,
   Code2,
-  Database,
   Cloud,
   Cpu,
   LineChart,
   Boxes,
-  Globe,
   GraduationCap,
   Briefcase,
   Trophy,
-  Award,
-  Server,
 } from "lucide-react";
 
 export const personal = {
@@ -54,104 +50,115 @@ export const about = {
   ],
 };
 
-export type Skill = { name: string; level: number };
-export type SkillCategory = {
-  category: string;
-  icon: LucideIcon;
-  accent: string;
-  skills: Skill[];
+// ── Technology Universe ─────────────────────────────────────────────
+// Expertise is communicated through real, project-backed experience and a
+// clear visual hierarchy — never arbitrary percentages.
+export type ExperienceLevel =
+  | "Beginner"
+  | "Intermediate"
+  | "Advanced"
+  | "Expert";
+
+export type TechCategory =
+  | "AI & Machine Learning"
+  | "Data Science & Analytics"
+  | "Full-Stack Development"
+  | "Salesforce Development"
+  | "Cloud & DevOps"
+  | "Databases"
+  | "Tools & Platforms";
+
+export const techCategories: TechCategory[] = [
+  "AI & Machine Learning",
+  "Data Science & Analytics",
+  "Full-Stack Development",
+  "Salesforce Development",
+  "Cloud & DevOps",
+  "Databases",
+  "Tools & Platforms",
+];
+
+export type Tech = {
+  name: string;
+  category: TechCategory;
+  level: ExperienceLevel;
+  // simple-icons slug, rendered from https://cdn.simpleicons.org/<slug>.
+  // Leave empty when no official logo exists — the UI falls back to an
+  // initial-letter badge automatically.
+  slug: string;
+  projects: string[];
 };
 
-export const skillCategories: SkillCategory[] = [
-  {
-    category: "Languages",
-    icon: Code2,
-    accent: "from-neon-blue to-neon-cyan",
-    skills: [
-      { name: "Python", level: 92 },
-      { name: "SQL", level: 85 },
-      { name: "JavaScript / TypeScript", level: 84 },
-      { name: "Java", level: 80 },
-      { name: "C++", level: 75 },
-    ],
-  },
-  {
-    category: "AI / ML Engineering",
-    icon: Brain,
-    accent: "from-neon-purple to-neon-pink",
-    skills: [
-      { name: "PyTorch", level: 86 },
-      { name: "TensorFlow / Keras", level: 84 },
-      { name: "Scikit-Learn", level: 88 },
-      { name: "Hugging Face Transformers", level: 82 },
-      { name: "LLMs, RAG & LangChain", level: 84 },
-      { name: "NLP & Computer Vision", level: 83 },
-    ],
-  },
-  {
-    category: "Data Science & Analytics",
-    icon: LineChart,
-    accent: "from-neon-cyan to-neon-blue",
-    skills: [
-      { name: "Pandas & NumPy", level: 90 },
-      { name: "Matplotlib / Seaborn", level: 84 },
-      { name: "Statistics & EDA", level: 82 },
-      { name: "Power BI", level: 80 },
-      { name: "Jupyter / Colab", level: 88 },
-    ],
-  },
-  {
-    category: "MLOps & Cloud",
-    icon: Server,
-    accent: "from-neon-cyan to-neon-purple",
-    skills: [
-      { name: "Docker", level: 80 },
-      { name: "Git & GitHub", level: 88 },
-      { name: "FastAPI & REST APIs", level: 84 },
-      { name: "AWS / Oracle Cloud (OCI)", level: 78 },
-      { name: "CI/CD & Linux", level: 78 },
-    ],
-  },
-  {
-    category: "Full-Stack Web",
-    icon: Globe,
-    accent: "from-neon-blue to-neon-violet",
-    skills: [
-      { name: "React & Next.js", level: 86 },
-      { name: "Node.js", level: 80 },
-      { name: "Tailwind CSS", level: 90 },
-      { name: "TypeScript", level: 82 },
-    ],
-  },
-  {
-    category: "Salesforce",
-    icon: Cloud,
-    accent: "from-neon-violet to-neon-cyan",
-    skills: [
-      { name: "Apex", level: 80 },
-      { name: "Lightning Web Components", level: 82 },
-      { name: "Flow Builder", level: 86 },
-      { name: "SOQL / SOSL", level: 82 },
-      { name: "Sales & Service Cloud", level: 78 },
-    ],
-  },
-  {
-    category: "Databases",
-    icon: Database,
-    accent: "from-neon-pink to-neon-purple",
-    skills: [
-      { name: "MySQL / PostgreSQL", level: 84 },
-      { name: "MongoDB", level: 80 },
-      { name: "Vector DBs (FAISS / Pinecone)", level: 76 },
-    ],
-  },
+export const techStack: Tech[] = [
+  // AI & Machine Learning
+  { name: "Python", category: "AI & Machine Learning", level: "Expert", slug: "python", projects: ["HealthMate", "Form Data Extraction", "Obstacle Detection Bot"] },
+  { name: "PyTorch", category: "AI & Machine Learning", level: "Advanced", slug: "pytorch", projects: ["HealthMate"] },
+  { name: "TensorFlow", category: "AI & Machine Learning", level: "Advanced", slug: "tensorflow", projects: ["HealthMate"] },
+  { name: "Keras", category: "AI & Machine Learning", level: "Intermediate", slug: "keras", projects: ["HealthMate"] },
+  { name: "scikit-learn", category: "AI & Machine Learning", level: "Advanced", slug: "scikitlearn", projects: ["Form Data Extraction"] },
+  { name: "Hugging Face", category: "AI & Machine Learning", level: "Advanced", slug: "huggingface", projects: ["HealthMate"] },
+  { name: "LangChain", category: "AI & Machine Learning", level: "Advanced", slug: "langchain", projects: ["HealthMate"] },
+  { name: "OpenAI / LLMs", category: "AI & Machine Learning", level: "Advanced", slug: "openai", projects: ["HealthMate"] },
+  { name: "OpenCV", category: "AI & Machine Learning", level: "Intermediate", slug: "opencv", projects: ["Form Data Extraction", "Obstacle Detection Bot"] },
+  { name: "NLP", category: "AI & Machine Learning", level: "Advanced", slug: "", projects: ["HealthMate"] },
+  { name: "OCR", category: "AI & Machine Learning", level: "Advanced", slug: "", projects: ["Form Data Extraction"] },
+
+  // Data Science & Analytics
+  { name: "Pandas", category: "Data Science & Analytics", level: "Expert", slug: "pandas", projects: ["Form Data Extraction"] },
+  { name: "NumPy", category: "Data Science & Analytics", level: "Expert", slug: "numpy", projects: ["Form Data Extraction"] },
+  { name: "Plotly", category: "Data Science & Analytics", level: "Intermediate", slug: "plotly", projects: ["Form Data Extraction"] },
+  { name: "Power BI", category: "Data Science & Analytics", level: "Intermediate", slug: "powerbi", projects: ["Hospital DMS"] },
+  { name: "Jupyter", category: "Data Science & Analytics", level: "Advanced", slug: "jupyter", projects: ["Form Data Extraction"] },
+  { name: "Google Colab", category: "Data Science & Analytics", level: "Advanced", slug: "googlecolab", projects: ["HealthMate"] },
+
+  // Full-Stack Development
+  { name: "React", category: "Full-Stack Development", level: "Advanced", slug: "react", projects: ["HealthMate", "Wallet – Expense Tracker"] },
+  { name: "Next.js", category: "Full-Stack Development", level: "Advanced", slug: "nextdotjs", projects: ["Portfolio"] },
+  { name: "Node.js", category: "Full-Stack Development", level: "Intermediate", slug: "nodedotjs", projects: ["Wallet – Expense Tracker"] },
+  { name: "TypeScript", category: "Full-Stack Development", level: "Advanced", slug: "typescript", projects: ["Portfolio"] },
+  { name: "JavaScript", category: "Full-Stack Development", level: "Advanced", slug: "javascript", projects: ["Wallet – Expense Tracker"] },
+  { name: "Tailwind CSS", category: "Full-Stack Development", level: "Advanced", slug: "tailwindcss", projects: ["Portfolio"] },
+  { name: "HTML5", category: "Full-Stack Development", level: "Advanced", slug: "html5", projects: ["NAAC Data Management"] },
+  { name: "CSS3", category: "Full-Stack Development", level: "Advanced", slug: "css3", projects: ["NAAC Data Management"] },
+  { name: "FastAPI", category: "Full-Stack Development", level: "Advanced", slug: "fastapi", projects: ["HealthMate"] },
+
+  // Salesforce Development
+  { name: "Salesforce", category: "Salesforce Development", level: "Advanced", slug: "salesforce", projects: ["Salesforce CRM", "Vehicle Order System"] },
+  { name: "Apex", category: "Salesforce Development", level: "Advanced", slug: "", projects: ["Vehicle Order System"] },
+  { name: "LWC", category: "Salesforce Development", level: "Advanced", slug: "", projects: ["Salesforce CRM"] },
+  { name: "Flow Builder", category: "Salesforce Development", level: "Expert", slug: "", projects: ["Flow Automation", "Salesforce CRM"] },
+  { name: "SOQL / SOSL", category: "Salesforce Development", level: "Advanced", slug: "", projects: ["Vehicle Order System"] },
+
+  // Cloud & DevOps
+  { name: "Docker", category: "Cloud & DevOps", level: "Advanced", slug: "docker", projects: ["NAAC Data Management"] },
+  { name: "AWS", category: "Cloud & DevOps", level: "Intermediate", slug: "amazonwebservices", projects: ["NAAC Data Management"] },
+  { name: "Oracle Cloud", category: "Cloud & DevOps", level: "Intermediate", slug: "oracle", projects: ["NAAC Data Management"] },
+  { name: "Git", category: "Cloud & DevOps", level: "Advanced", slug: "git", projects: ["HealthMate"] },
+  { name: "GitHub", category: "Cloud & DevOps", level: "Advanced", slug: "github", projects: ["HealthMate"] },
+  { name: "Linux", category: "Cloud & DevOps", level: "Advanced", slug: "linux", projects: ["NAAC Data Management"] },
+
+  // Databases
+  { name: "MySQL", category: "Databases", level: "Advanced", slug: "mysql", projects: ["Hospital DMS", "Wallet – Expense Tracker"] },
+  { name: "PostgreSQL", category: "Databases", level: "Advanced", slug: "postgresql", projects: ["Hospital DMS"] },
+  { name: "MongoDB", category: "Databases", level: "Intermediate", slug: "mongodb", projects: ["HealthMate"] },
+  { name: "SQLite", category: "Databases", level: "Intermediate", slug: "sqlite", projects: ["Wallet – Expense Tracker"] },
+
+  // Tools & Platforms
+  { name: "VS Code", category: "Tools & Platforms", level: "Expert", slug: "", projects: ["HealthMate"] },
+  { name: "Postman", category: "Tools & Platforms", level: "Advanced", slug: "postman", projects: ["HealthMate"] },
+  { name: "Figma", category: "Tools & Platforms", level: "Intermediate", slug: "figma", projects: ["Wallet – Expense Tracker"] },
+  { name: "Anaconda", category: "Tools & Platforms", level: "Intermediate", slug: "anaconda", projects: ["Form Data Extraction"] },
+  { name: "Vercel", category: "Tools & Platforms", level: "Intermediate", slug: "vercel", projects: ["Portfolio"] },
 ];
 
 export type ProjectCategory =
   | "AI/ML"
   | "Data Science"
   | "Salesforce"
-  | "Web Development";
+  | "Cloud"
+  | "IoT"
+  | "Web & App"
+  | "Database";
 
 export type Project = {
   slug: string;
@@ -164,48 +171,49 @@ export type Project = {
   demo?: string;
   gradient: string;
   emoji: string;
+  // Highlighted on the resume — surfaced first with a "Top Pick" badge.
+  featured?: boolean;
   // Screenshot gallery shown in the project viewer (swipeable carousel).
   // Drop replacement images in public/projects/ using the same file names.
+  // Leave empty ([]) when a project has no screenshots yet.
   images: string[];
 };
 
 export const projects: Project[] = [
   {
-    slug: "emobhaava",
-    title: "EmoBhaava",
-    category: "AI/ML",
+    slug: "naac-data-management",
+    title: "Cloud-Based NAAC Data Management System",
+    category: "Cloud",
     description:
-      "Kannada sentiment & sarcasm detection using deep learning and NLP, bringing low-resource language understanding to regional social media.",
+      "Centralized, containerized platform for managing NAAC accreditation data — secure storage, retrieval, and simplified documentation and report generation for the accreditation process.",
     achievements: [
-      "Fine-tuned transformer models for Kannada text",
-      "Dedicated sarcasm-detection head over sentiment baseline",
-      "Custom annotated Kannada corpus pipeline",
+      "Containerized application deployment using Docker",
+      "Secure storage and retrieval of institutional records",
+      "Simplified documentation & report generation for accreditation",
     ],
-    tech: ["Python", "PyTorch", "Transformers", "NLP", "Pandas"],
+    tech: ["Docker", "Cloud Computing", "Database Management", "Web Technologies"],
     github: "https://github.com/Sohan-dsz",
-    gradient: "from-fuchsia-500/30 via-purple-500/20 to-blue-500/30",
-    emoji: "🗣️",
-    images: [
-      "/projects/emobhaava-1.jpg",
-      "/projects/emobhaava-2.jpg",
-      "/projects/emobhaava-3.jpg",
-    ],
+    gradient: "from-sky-500/30 via-blue-500/20 to-indigo-500/30",
+    emoji: "☁️",
+    featured: true,
+    images: [],
   },
   {
     slug: "healthmate",
-    title: "HealthMate",
+    title: "HealthMate – AI Health Companion",
     category: "AI/ML",
     description:
-      "AI-powered health companion platform with multimodal interaction — speech, text, and documents — for accessible personal health guidance.",
+      "Intelligent, multimodal healthcare assistant offering symptom analysis, health guidance, doctor recommendation support, and audio-based interaction.",
     achievements: [
-      "Multimodal pipeline with Whisper speech-to-text + LLMs",
-      "OCR-based extraction from medical documents",
-      "Conversational response generation layer",
+      "Symptom analysis and personalized health guidance",
+      "Doctor recommendation support",
+      "Audio-based, multimodal interaction (speech, text, documents)",
     ],
-    tech: ["Python", "LLMs", "Whisper", "React", "OCR"],
+    tech: ["AI/ML", "NLP", "Python", "LLMs", "Whisper"],
     github: "https://github.com/Sohan-dsz",
     gradient: "from-cyan-500/30 via-sky-500/20 to-emerald-500/30",
     emoji: "🩺",
+    featured: true,
     images: [
       "/projects/healthmate-1.jpg",
       "/projects/healthmate-2.jpg",
@@ -213,40 +221,56 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "alzheimers-classification",
-    title: "Alzheimer's Disease Classification",
+    slug: "geogit-form-extraction",
+    title: "Automated Form Data Extraction System",
     category: "Data Science",
     description:
-      "Comparative analysis of classical ML and deep learning models for classifying Alzheimer's stages from MRI imaging data.",
+      "GeoGIT internship project that automates extraction of information from scanned forms — reducing manual data entry while improving processing speed and accuracy.",
     achievements: [
-      "Benchmarked CNNs against classical ML baselines",
-      "MRI preprocessing & augmentation pipeline",
-      "Evaluation across accuracy, recall, and F1",
+      "Automated extraction of information from forms",
+      "Reduced manual data-entry effort significantly",
+      "Structured data generation from scanned documents",
     ],
-    tech: ["Python", "TensorFlow", "Scikit-Learn", "NumPy", "Matplotlib"],
+    tech: ["Python", "OCR", "Data Processing"],
     github: "https://github.com/Sohan-dsz",
-    gradient: "from-indigo-500/30 via-violet-500/20 to-purple-500/30",
-    emoji: "🧠",
-    images: [
-      "/projects/alzheimers-classification-1.jpg",
-      "/projects/alzheimers-classification-2.jpg",
-      "/projects/alzheimers-classification-3.jpg",
-    ],
+    gradient: "from-emerald-500/30 via-teal-500/20 to-cyan-500/30",
+    emoji: "📄",
+    featured: true,
+    images: [],
   },
   {
-    slug: "salesforce-crm",
-    title: "Salesforce CRM Solution",
+    slug: "obstacle-detection-bot",
+    title: "Obstacle Detection Bot with App & Voice Support",
+    category: "IoT",
+    description:
+      "Real-time obstacle detection robot built for smart navigation and assistance, paired with a mobile app for monitoring and control plus voice command support.",
+    achievements: [
+      "Real-time obstacle detection using sensors",
+      "Mobile application for monitoring and control",
+      "Voice command support for smart navigation",
+    ],
+    tech: ["IoT", "Embedded Systems", "Mobile App Development", "Voice"],
+    github: "https://github.com/Sohan-dsz",
+    gradient: "from-amber-500/30 via-orange-500/20 to-rose-500/30",
+    emoji: "🤖",
+    featured: true,
+    images: [],
+  },
+  {
+    slug: "salesforce-crm-whatnext",
+    title: "Salesforce CRM – WhatNext Vision Motors",
     category: "Salesforce",
     description:
-      "Customer and vehicle management CRM for WhatNext Vision Motors with automation-driven workflows and reporting dashboards.",
+      "CRM implementation on Salesforce for WhatNext Vision Motors covering customer and sales-process management with business workflow automation, presented as a Capstorm-based project.",
     achievements: [
-      "CRM automation via Salesforce Flow",
-      "Custom Lightning App Builder interfaces",
-      "Analytics dashboards for data-driven decisions",
+      "Customer and sales process management",
+      "Business workflow automation via Salesforce Flow",
+      "Capstorm-based project presentation",
     ],
-    tech: ["Apex", "LWC", "Flow Builder", "SOQL"],
+    tech: ["Salesforce", "CRM", "Flow Builder", "Capstorm"],
     gradient: "from-blue-500/30 via-cyan-500/20 to-teal-500/30",
     emoji: "🚗",
+    featured: true,
     images: [
       "/projects/salesforce-crm-1.jpg",
       "/projects/salesforce-crm-2.jpg",
@@ -254,24 +278,70 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "baja-saeindia",
-    title: "BAJA SAEINDIA Engineering Project",
-    category: "Data Science",
+    slug: "wallet-expense-tracker",
+    title: "Wallet Application – Expense Tracker",
+    category: "Web & App",
     description:
-      "Design, simulation, validation, and optimization of an off-road vehicle as part of Team SJEC Racing for the BAJA SAEINDIA competition.",
+      "Personal finance management system for tracking income and expenses, monitoring budgets, and managing transaction history with clear reporting.",
     achievements: [
-      "CAD design & simulation of vehicle subsystems",
-      "Validation and optimization through testing",
-      "Led the team as Captain to competition",
+      "Income and expense tracking",
+      "Budget monitoring and reporting",
+      "Transaction history management",
     ],
-    tech: ["Simulation", "CAD", "Validation", "Optimization"],
-    gradient: "from-amber-500/30 via-orange-500/20 to-rose-500/30",
-    emoji: "🏎️",
-    images: [
-      "/projects/baja-saeindia-1.jpg",
-      "/projects/baja-saeindia-2.jpg",
-      "/projects/baja-saeindia-3.jpg",
+    tech: ["Database Management", "Application Development"],
+    github: "https://github.com/Sohan-dsz",
+    gradient: "from-fuchsia-500/30 via-purple-500/20 to-blue-500/30",
+    emoji: "💸",
+    images: [],
+  },
+  {
+    slug: "hospital-data-management",
+    title: "Hospital Data Management System",
+    category: "Database",
+    description:
+      "Academic DBMS project demonstrating relational database concepts through patient record, doctor, and appointment management for database-driven hospital operations.",
+    achievements: [
+      "Patient record management",
+      "Doctor and appointment management",
+      "Database-driven hospital operations",
     ],
+    tech: ["DBMS", "SQL"],
+    github: "https://github.com/Sohan-dsz",
+    gradient: "from-rose-500/30 via-pink-500/20 to-purple-500/30",
+    emoji: "🏥",
+    images: [],
+  },
+  {
+    slug: "salesforce-flow-automation",
+    title: "Salesforce Flow Automation Projects",
+    category: "Salesforce",
+    description:
+      "A collection of Salesforce automation flows — staff recommendation, book-order counting, QA task creation — and Screen Flow Distribution superbadge solutions.",
+    achievements: [
+      "Staff Recommendation & Book Order Count flows",
+      "QA Task Creation automation",
+      "Screen Flow Distribution superbadge solutions",
+    ],
+    tech: ["Salesforce Flow", "Screen Flow", "Superbadge"],
+    gradient: "from-indigo-500/30 via-violet-500/20 to-purple-500/30",
+    emoji: "⚡",
+    images: [],
+  },
+  {
+    slug: "vehicle-order-inventory",
+    title: "Vehicle Order & Inventory Management System",
+    category: "Salesforce",
+    description:
+      "Salesforce solution built around a custom Vehicle_Order__c object with automated stock management, batch processing, and scheduled jobs for end-to-end business process automation.",
+    achievements: [
+      "Custom Vehicle_Order__c object with automated stock management",
+      "Batch processing and scheduled jobs",
+      "End-to-end business process automation",
+    ],
+    tech: ["Apex", "Triggers", "Batch Apex", "Scheduler"],
+    gradient: "from-cyan-500/30 via-blue-500/20 to-violet-500/30",
+    emoji: "📦",
+    images: [],
   },
 ];
 
@@ -455,15 +525,6 @@ export const courses: Course[] = [
   { title: "OCI Foundations", provider: "Oracle", category: "Cloud Computing", icon: Cloud },
   { title: "Full-Stack Web Development", provider: "Self", category: "Software Development", icon: Code2 },
   { title: "AI Foundations Associate", provider: "Oracle", category: "AI/ML", icon: GraduationCap },
-];
-
-export type Stat = { label: string; value: number; suffix: string; icon: LucideIcon };
-
-export const stats: Stat[] = [
-  { label: "Projects Completed", value: 12, suffix: "+", icon: Boxes },
-  { label: "Certifications Earned", value: 6, suffix: "+", icon: Award },
-  { label: "Technologies Mastered", value: 30, suffix: "+", icon: Cpu },
-  { label: "Competitions Participated", value: 4, suffix: "+", icon: Trophy },
 ];
 
 export const navLinks = [
